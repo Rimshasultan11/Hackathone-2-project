@@ -25,23 +25,24 @@ const page = () => {
           {[{ id: 1, img: p3, name: "Graystone vase", price: 85 }, { id: 2, img: p8, name: "Graystone vase", price: 125 }].map((product) => (
             <div
               key={product.id}
-              className="mt-8 flex flex-wrap md:flex-nowrap items-center justify-between gap-4 md:gap-0"
+              className="mt-8 flex  items-center justify-between gap-4 md:gap-0"
             >
               {/* Product Info */}
               <div className="flex gap-4 w-full md:w-auto">
                 <div>
                   <Image src={product.img} alt={product.name} className="w-28 h-32 object-cover" />
                 </div>
-                <div className="text-[#2A254B] flex flex-col">
+                <div  className="text-[#2A254B] flex ">
+                  <div className='flex flex-col'>
                   <h4 className="text-lg font-normal">{product.name}</h4>
                   <p className="text-xs tracking-tight">
                     A timeless ceramic vase with a tri-color grey glaze.
                   </p>
-                  <p className="text-sm mt-2">£{product.price}</p>
+                  <p className="text-sm mt-2">£{product.price}</p></div>
                 </div>
               </div>
               {/* Quantity */}
-              <div className="text-center md:text-left w-full md:w-auto">1</div>
+              <div className="mr-[300px]">1</div>
               {/* Total */}
               <div className="w-full md:w-auto text-center md:text-left">
                 <p>£{product.price}</p>

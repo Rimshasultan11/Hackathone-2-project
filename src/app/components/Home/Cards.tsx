@@ -1,14 +1,13 @@
 import React from 'react'
 import Image from 'next/image';
-import Link from 'next/link';
 
-const Cards = ({pic,description,tittle,id}:{pic?:any,description?:string,tittle?:string,id?:number,onClick?: () => void}) => {
+const Cards = ({pic,description,tittle}:{pic:any,description:string,tittle:any}) => {
   return (
     <div>
-    <div className='w-full xl:w-[305px] h-[462px] '>
-      <div className='w-full h-[280px]  bg-[#F5F5F5] '>
+    <div className='w-full xl:w-[305px] h-[462px] hover:bg-[#2A254B] text-[#2A254B]  hover:text-white' >
+      <div className='w-full h-[280px]  ' >
       <div> <Image src={pic} alt='cards' className='w-[305px] h-[375px]'/></div>
-        <div className='text-[#2A254B] leading-8'>
+        <div className='leading-8'>
             <p>{description}</p>
             <p>{tittle}</p>
             

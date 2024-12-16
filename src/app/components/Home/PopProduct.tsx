@@ -14,9 +14,9 @@ const PopProduct = () => {
         <div className='flex gap-3 mt-5'>
 
 
-     <div className='w-[900px] ml-8 hidden lg:block'> 
+     <div className='w-[900px] ml-8 hidden lg:block hover:bg-[#2A254B] text-[#2A254B] hover:text-white'> 
     <Image src={p5} alt='large ' className='w-[900px] hidden lg:block'/>
-<div className='text-[#2A254B] leading-8'>
+<div className=' leading-8'>
             <p>The Poplar suede sofa</p>
             <p>£980</p>
             
