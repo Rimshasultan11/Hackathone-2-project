@@ -44,15 +44,11 @@ const Navsecond = () => {
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-8">
           <ul className="flex gap-6">
-            <li>
-              <Link href="#">About Us</Link>
-            </li>
+          <li><Link href="/components/About">About</Link></li>
             <li>
               <Link href="#">Contact</Link>
             </li>
-            <li>
-              <Link href="#">Blog</Link>
-            </li>
+          
           </ul>
           <div className="flex gap-4 text-lg text-[#2A254B]">
             <CiSearch />
@@ -68,15 +64,11 @@ const Navsecond = () => {
       {isOpen && (
         <div className="lg:hidden bg-[#FFFFFF] px-4 py-4">
           <ul className="flex flex-col gap-4">
-            <li>
-              <Link href="#">About Us</Link>
-            </li>
+          <li><Link href="/components/About">About</Link></li>
             <li>
               <Link href="#">Contact</Link>
             </li>
-            <li>
-              <Link href="#">Blog</Link>
-            </li>
+            
           </ul>
           <div className="flex gap-4 mt-4 text-lg text-[#2A254B]">
             <CiSearch />
@@ -91,21 +83,16 @@ const Navsecond = () => {
       {/* Bottom Navbar */}
       <div className="w-full h-[64px] bg-[#F9F9F9] px-4 lg:px-[250px] mb-14 mt-0 py-4 items-center justify-center hidden lg:block">
         <ul className="flex gap-[30px] text-[14px] text-[#726E8D] text-center font-normal">
+        <li>
+            <Link href="/">Home</Link>
+          </li>
           <li>
             <Link href="/components/AllProduct">All Products</Link>
           </li>
-          <li>
-            <Link href="#">Plant pots</Link>
-          </li>
-          <li>
-            <Link href="#">Ceramics</Link>
-          </li>
-          <li>
-            <Link href="#">Tables</Link>
-          </li>
-          <li>
-            <Link href="#">Chairs</Link>
-          </li>
+          <li><Link href="/components/About">Plant pots</Link></li>
+          <li><Link href="/components/AllProduct">Ceramics</Link></li>
+          <li><Link href="/components/Productlisting">Tables</Link></li>
+          <li><Link href="/components/shoplist">Chairs</Link></li>
           <li>
             <Link href="#">Crockery</Link>
           </li>

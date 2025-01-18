@@ -3,9 +3,9 @@ import p1 from '/public/p1.png'
 import p2 from '/public/p2.png'
 import p3 from '/public/p3.png'
 import p4 from '/public/p4.png'
-import Grid from '../Home/Grid'
-import Tittle from '../Home/Tittle'
-import Cards from '../Home/Cards'
+import Grid from '../../Home/Grid'
+import Tittle from '../../Home/Tittle'
+import Cards from '../../Home/Cards'
 const Cardsbar = () => {
   return (
     <div>

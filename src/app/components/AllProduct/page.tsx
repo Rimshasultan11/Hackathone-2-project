@@ -53,8 +53,8 @@ const page = () => {
                 </li>
     </ul>
 </div>
-    </div>
-    <ProCards/>
+    </div> 
+    <ProCards/> 
     <Footer/>
     </div>
   )

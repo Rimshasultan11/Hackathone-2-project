@@ -1,134 +1,131 @@
-import Navsecond from "@/app/components/Home/Navsecond";
-
 import Image from "next/image";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import p1 from '/public/p1.png'
-import p2 from '/public/p2.png'
-import p3 from '/public/p3.png'
-import p4 from '/public/p4.png'
-import p10 from '/public/p10.png'
-import p11 from '/public/p11.png'
-import p12 from '/public/p12.png'
-import p13 from '/public/p13.png'
-interface Product {
-  id: number;
-  img:any;
-  des: string;
-  price: string;
-}
- const productList:Product[]=[
+import Cardsbar from "../Cardsbar";
+import Brandes from "@/app/components/Home/Brandes";
+import Join from "@/app/components/Home/Join";
+import FooterS from "@/app/components/Footer/FooterS";
+import { client } from "@/sanity/lib/client";
+import Navbar from "@/app/components/Home/Navbar";
 
-  {
-    id:1,
-    img:p1,
-    des:'The dany chair',
-    price:"£250"
-  },
-  
-  {
-    id:2,
-    img:p2,
-    des:'Rustic Vase Set',
-    price:"£155"
-  },
-  
-  {
-    id:3,
-    img:p3,
-    des:'The Silky Vase',
-    price:"£125"
-  },
-  {
-    id:4,
-    img:p4,
-    des:'The Lucy Lamp',
-    price:"£399"
-  },
-  {
-    id:5,
-    img:p10,
-    des:'The dany chair',
-    price:"£250"
-  },
-  
-  {
-    id:6,
-    img:p11,
-   des:'Rustic Vase Set',
-    price:"£155"
-  },
-  
-  {
-    id:7,
-    img:p12,
-   des:'The Silky Vase',
-    price:"£125"
-  },
-  {
-    id:8,
-    img:p13,
-    des:'The Lucy Lamp',
-    price:"£399"
-  },
-  {
-    id:9,
-    img:p1,
-    des:'The dany chair',
-    price:"£250"
-  },
-  
-  {
-    id:10,
-    img:p2,
-    des:'Rustic Vase Set',
-    price:"£155"
-  },
-  
-  {
-    id:11,
-    img:p3,
-    des:'The Silky Vase',
-    price:"£125"
-  },
-  {
-    id:12,
-    img:p4,
-    des:'The Lucy Lamp',
-    price:"£399"
+export default async function ProductDetails({
+  params,
+}: {
+  params: { Prodetails: string };
+}) {
+  interface Product {
+    _id: string;
+    name: string;
+    price: number;
+    imageUrl: string;
+    description: string;
+    features: string[];
+    dimensions: {
+      width: string;
+      height: string;
+      depth: string;
+    };
   }
-];
-export default  function ProductDetails ({params}:{params:{Prodetails:string}}) {
+  
+  const url = `*[_type == 'product' ]{
+ _id, 
+  name,
+  price,
+  "imageUrl":image.asset->url,
+   description,
+   features ,
+   dimensions 
+  }`;
 
-const data =  productList 
+  const filterData: Product[] = await client.fetch(url);
 
-const filterData = data.find((item:any)=>
-  item.id ==  params.Prodetails
-);
-
+  const product = filterData.find(
+    (product) => product._id === params.Prodetails
+  );
+  
   return (
     <div>
-      <Navsecond/>
-    
-      <h1 className='text-center text-7xl font-bold text-[#2A254B]'>Product Details</h1>
-      <div className=" w-full wrapper flex max-sm:flex-col md:flex-row gap-8 my-[100px]" key={filterData?.id}>
-<div className="shadow-lg shadow-gray-400 rounded-lg w-[500px] ">
-  <Image src={filterData?.img  || "/anyimage.jpg" } alt="image" width={500} height={300} className="rounded-lg"/>
-  </div>
-  <div className="w-[600px] py-10  text-[#2A254B]">
-<div className="text-7xl">{filterData?.des}</div>
-<div className="text-lg mt-10">
-  <span className="text-sm my-4">Description:</span><br />
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, nesciunt? Esse tempora ex eveniet quia eum nesciunt. Culpa, quia omnis. Provident in, quia veniam commodi earum ullam enim ut unde</p></div>
-<div className="text-4xl mt-10">Price:{filterData?.price}</div>
-<div className="mt-10">
-<button className='bg-[#2A254B] w-[190px] h-[56px] text-[16px]  py-[16px] px-[32px]  flex gap-2 items-center text-[#FFFFFF] '>Add to Cart <AiOutlineShoppingCart /></button>
-</div>
-</div>
-    </div></div>
-  )
+     <Navbar/>
+      <div className="w-full bg-[#FFFFFF] py-8 lg:py-12">
+        <div  className="flex flex-col lg:flex-row w-full gap-10 lg:gap-16 px-6 lg:px-16" >
+          {/* Image Section */}
+          <div className="w-full lg:w-1/2 flex justify-center" >
+            <Image
+              src={product?.imageUrl || "imageUrl"}
+              alt="left/image"
+              width={300}
+              height={300}
+              className="w-full max-w-[390px] lg:max-w-[721px] object-cover"
+            />
+          </div>
+
+          {/* Text Section */}
+          <div className="w-full lg:w-1/2 flex flex-col">
+            {/* Product Title and Price */}
+            <div>
+              <p className="text-[#2A254B] mb-4 text-xl lg:text-4xl mt-4 lg:mt-0">
+                {product?.name}
+              </p>
+
+              <p className="text-[#12131A] text-lg lg:text-2xl">
+                £{product?.price}
+              </p>
+            </div>
+
+            {/* Description Section */}
+            <div className="mt-6 lg:mt-10 flex flex-col gap-5">
+              <p className="text-[#2A254B] text-lg">Description</p>
+              <p className="text-[#505977] text-base">{product?.description}</p>
+
+              <ul className="list-disc pl-6 text-[#505977] text-base">
+                <li>
+                  {product?.features.map((feature,index) => {
+                    return (
+                      <div
+                      key={index}
+                      >
+                        <span>{feature}</span>
+                      </div>
+                    );
+                  })}
+                </li>
+              </ul>
+            </div>
+
+            {/* Dimensions Section */}
+            <div className="flex flex-col gap-4 mt-8">
+              <p className="text-[#2A254B] text-lg">Dimensions</p>
+              <div className="flex flex-col text-base text-[#505977]">
+                <ul className="flex items-center gap-8">
+                  <li className="flex flex-col gap-2">
+                    <span>Width</span> {product?.dimensions?.width}
+                  </li>
+                  <li className="flex flex-col gap-2">
+                    <span>Height</span>
+                    {product?.dimensions?.height}
+                  </li>
+                  <li className="flex flex-col gap-2">
+                    <span>Depth</span>
+                    {product?.dimensions?.depth}
+                  </li>
+                </ul>
+            </div>
+            </div>
+            {/* Amount and Add to Cart Section */}
+            <div className="flex items-center justify-between mt-8">
+              <div className="flex gap-4 items-center text-[#2A254B]">
+                <p>Amount</p>
+                <p>1</p>
+              </div>
+              <button className="bg-[#2A254B] text-white py-3 px-6 text-sm lg:text-base">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Cardsbar />
+      <Brandes />
+      <Join />
+      <FooterS />
+    </div>
+  );
 }
-
-
-
-
-
