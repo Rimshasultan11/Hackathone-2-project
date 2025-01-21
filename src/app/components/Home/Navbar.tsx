@@ -6,38 +6,48 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CiSearch } from "react-icons/ci";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { FaGripLines } from "react-icons/fa";
+import Search from '../search/Search';
+
 
 const Navbar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  
 
   useEffect(() => {
-    // Retrieve the cart count from localStorage on component mount
     const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
     setCartCount(cartItems.length);
   }, []);
+  
+
   return (
     <div className="w-full bg-[#FFFFFF]">
       {/* Top Bar */}
       <div className="flex justify-between items-center py-5 px-6 lg:px-8">
         <div className="flex items-center gap-2">
-          <CiSearch className="text-[#2A254B] text-2xl cursor-pointer hidden lg:block" />
+           <Search/>
+          {/* <CiSearch className="text-[#2A254B] text-2xl cursor-pointer hidden lg:block" /> */}
           <h1 className="text-[#22202E] text-xl font-bold lg:hidden">Avion</h1>
         </div>
         <h1 className="hidden lg:block text-[#22202E] text-xl font-bold">Avion</h1>
         <div className="flex gap-4 text-2xl ">
 
-        <Link href="/components/shoplist">
+        <Link href="/shoplist">
                <div className='relative'>
               <AiOutlineShoppingCart className=' text-3xl' />
               {cartCount > 0 && (
           <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-            {cartCount}
+          {cartCount}
           </span>
         )}</div>
             </Link>
+           
           <FaRegCircleUser className="cursor-pointer hidden lg:block" />
+          
+        
           <CiSearch className="text-[#2A254B] text-2xl cursor-pointer  lg:hidden " />
+         
+          
           {/* Mobile Menu Toggle */}
           <FaGripLines
             className="text-2xl cursor-pointer lg:hidden"

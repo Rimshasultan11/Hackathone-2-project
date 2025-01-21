@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import Cards from "../../Home/Cards";
 import Link from "next/link";
@@ -12,9 +12,8 @@ interface Product {
 }
 
 const ProCards: React.FC = () => {
-  const [data, setData] = useState<Product[]>([]); // State to store products
-  const [loading, setLoading] = useState<boolean>(true); // State to handle loading
-
+  const [data, setData] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     const fetchData = async () => {
       const url = `*[_type == 'product' ][0..23]{
@@ -25,11 +24,11 @@ const ProCards: React.FC = () => {
       }`;
       try {
         const result: Product[] = await client.fetch(url);
-        setData(result); // Store fetched data in state
+        setData(result);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
-        setLoading(false); // Stop loading spinner
+        setLoading(false);
       }
     };
 
@@ -40,23 +39,20 @@ const ProCards: React.FC = () => {
 
   return (
     <div>
-      <div className="wrapper grid grid-cols-2 lg:grid-cols-4 gap-6">
-  {data.map((item) => (
-    <Link
-    // Adding a unique key here
-    key={item._id}
-      href={`/components/AllProduct/productcards/${item._id}`}
-    >
-      <Cards
-       
-        pic={item.imageUrl}
-        description={item.name}
-        tittle={`£${item.price}`}
-      />
-      
-    </Link>
-  ))}
-</div>
+      <div className="wrapper grid grid-cols md:grid-cols-2 md:gap-2 lg:grid-cols-4 gap-6 mt-4">
+        {data.map((item) => (
+          <Link
+            key={item._id}
+            href={`/components/AllProduct/productcards/${item._id}`}
+          >
+            <Cards
+              pic={item.imageUrl}
+              description={item.name}
+              tittle={`£${item.price}`}
+            />
+          </Link>
+        ))}
+      </div>
 
       <button className="text-[#2A254B] text-[16px] w-[170px] h-[56px] py-[16px] px-[32px] my-8 bg-[#F9F9F9] lg:mx-[550px]">
         View All

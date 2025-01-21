@@ -52,7 +52,7 @@ const Navsecond = () => {
           </ul>
           <div className="flex gap-4 text-lg text-[#2A254B]">
             <CiSearch />
-            <Link href="/components/shoplist">
+            <Link href="/shoplist">
               <AiOutlineShoppingCart />
             </Link>
             <FaRegCircleUser/>
