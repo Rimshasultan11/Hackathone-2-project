@@ -1,19 +1,23 @@
-
-"use clint"
-import React, { useState, useContext } from 'react';
-import { FaSearch } from 'react-icons/fa';
+"use clint";
+import React, { useState, useContext } from "react";
+import { FaSearch } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import ProductContext from '@/app/context/ProductContext';
-import Image from 'next/image';
-import Link from 'next/link';
-
+import ProductContext from "@/app/context/ProductContext";
+import Image from "next/image";
 const Search = () => {
-  const products: { name: string; _id: string; price: number; imageUrl: string }[] = useContext(ProductContext); // Access global products
-  const [filteredProducts, setFilteredProducts] = useState<{ name: string; _id: string; price: number; imageUrl: string }[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const products: {
+    name: string;
+    _id: string;
+    price: number;
+    imageUrl: string;
+  }[] = useContext(ProductContext); // Access global products
+  const [filteredProducts, setFilteredProducts] = useState<
+    { name: string; _id: string; price: number; imageUrl: string }[]
+  >([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
-  const handleSearch = (event: { target: { value: string; }; }) => {
+  const handleSearch = (event: { target: { value: string } }) => {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
 
@@ -24,9 +28,9 @@ const Search = () => {
   };
 
   const handleProductClick = (id: string) => {
-    router.push(`/Allproduct/product/${id}`); // Navigate to the product detail page
+    setSearchQuery("");
+    router.push(`/components/AllProduct/productcards/${id}`);
   };
-
   return (
     <div className="flex flex-col gap-4">
       <div className="relative group hidden sm:block">
@@ -42,23 +46,26 @@ const Search = () => {
 
       {/* Filtered Products */}
       {searchQuery && (
-        
         <div className="absolute bg-[#2A254B] shadow-md p-4 rounded-lg mt-10">
           {filteredProducts.map((product) => (
             <div
               key={product._id}
-              className="p-2 cursor-pointer hover:bg-gray-100 text-white"
+              className="p-2 cursor-pointer hover:bg-gray-100 text-white hover:text-black"
               onClick={() => handleProductClick(product._id)} // Navigate on click
             >
-                <div className='flex  items-center gap-4'>
-               <div >
-              {product.name}
+              <div className="flex  items-center gap-4">
+                <div>{product.name}</div>
+                <div>{product.price}</div>
+                <div>
+                  <Image
+                    src={product.imageUrl}
+                    alt={product.name}
+                    width={50}
+                    height={50}
+                    className="w-10 h-10 object-cover"
+                  />
+                </div>
               </div>
-              <div>{product.price}</div>
-              <div>
-                <Image src={product.imageUrl} alt={product.name} width={50} height={50} className="w-10 h-10 object-cover" />
-              </div>
-            </div>
             </div>
           ))}
         </div>

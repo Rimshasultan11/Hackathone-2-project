@@ -1,26 +1,67 @@
-import React from "react";
-import Tittle from "./Tittle";
+"use client";
+import React, { useEffect, useState } from "react";
 import Cards from "./Cards";
-import p1 from "/public/p1.png";
-import p2 from "/public/p2.png";
-import p3 from "/public/p3.png";
-import p4 from "/public/p4.png";
-import Grid from "./Grid";
-const Products = () => {
+import Link from "next/link";
+import { client } from "@/sanity/lib/client";
+import Tittle from "./Tittle";
+
+interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+}
+
+const Products: React.FC = () => {
+  const [data, setData] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      const url = `*[_type == 'product' ][2..5]{
+        _id, 
+        name,
+        price,
+        "imageUrl":image.asset->url,
+      }`;
+      try {
+        const result: Product[] = await client.fetch(url);
+        setData(result);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <p>Loading...</p>; // Loading indicator
+
   return (
-    <div>
-      <div className="wrapper  mt-[70px] ">
-        <Tittle tittle="New ceramics" />
-        <Grid>
-          <Cards pic={p1} description="The Dandy chair" tittle="£250" />
-          <Cards pic={p2} description="Rustic Vase Set" tittle="£155" />
-          <Cards pic={p3} description="The Silky Vase" tittle="£125" />
-          <Cards pic={p4} description="The Lucy Lamp" tittle="£399" />
-        </Grid>
-        <button className="text-[#2A254B] text-[16px] w-[170px] h-[56px] py-[16px] px-[32px] bg-[#F9F9F9] lg:mx-[550px]">
-          view All
-        </button>
+    <div className="wrapper mt-4">
+      <Tittle tittle="New ceramics" />
+      <div className="wrapper grid grid-cols md:grid-cols-2 md:gap-2 lg:grid-cols-4 gap-6 mt-4">
+        {data.map((item) => (
+          <Link
+            key={item._id}
+            href={`/components/AllProduct/productcards/${item._id}`}
+          >
+            <Cards
+              pic={item.imageUrl}
+              description={item.name}
+              tittle={`£${item.price}`}
+            />
+          </Link>
+        ))}
       </div>
+
+      <Link href={`/components/AllProduct`}>
+        
+        <button className="text-[#2A254B] text-[16px] w-[170px] h-[56px] py-[16px] px-[32px] my-8 bg-[#F9F9F9] lg:mx-[550px]">
+          View All
+        </button>
+      </Link>
     </div>
   );
 };

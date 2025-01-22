@@ -21,7 +21,7 @@ export const ProductProvider = ({ children }: ProductProviderProps) => {
       dataset: 'production',
       useCdn: true,
     })
-      .fetch(`*[_type == "product"]{name, price, "imageUrl": image.asset->url}`)
+      .fetch(`*[_type == "product"]{ _id, name, price, "imageUrl":image.asset->url}`)
       .then((data) => setProducts(data))
       .catch(console.error);
   }, []);
