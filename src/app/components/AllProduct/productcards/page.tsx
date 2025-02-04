@@ -39,7 +39,7 @@ const ProCards: React.FC = () => {
 
   return (
     <div>
-      <div className="wrapper grid grid-cols md:grid-cols-2 md:gap-2 lg:grid-cols-4 gap-6 mt-4">
+      <div className="wrapper grid grid-cols md:grid-cols-2 md:gap-2 lg:grid-cols-4 gap-8 mt-4">
         {data.map((item) => (
           <Link
             key={item._id}

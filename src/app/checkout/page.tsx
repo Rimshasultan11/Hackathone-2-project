@@ -18,6 +18,9 @@ const Checkout: React.FC = () => {
     email: "",
     address: "",
     city: "",
+    country: "",
+    postalCode: "", 
+    paymentMethod: "", 
   });
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
 
@@ -52,7 +55,10 @@ const Checkout: React.FC = () => {
       billingInfo.fullName &&
       billingInfo.email &&
       billingInfo.address &&
-      billingInfo.city
+      billingInfo.city &&
+      billingInfo.country && 
+      billingInfo.postalCode && 
+      billingInfo.paymentMethod 
     );
   };
 
@@ -80,7 +86,9 @@ const Checkout: React.FC = () => {
     });
   };
 
-  const handleBillingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBillingChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setBillingInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
   };
@@ -125,6 +133,36 @@ const Checkout: React.FC = () => {
               placeholder="City"
               className="p-3 border rounded-md focus:outline-none focus:ring focus:ring-blue-500"
             />
+            {/* New Field: Country */}
+            <input
+              type="text"
+              name="country"
+              value={billingInfo.country}
+              onChange={handleBillingChange}
+              placeholder="Country"
+              className="p-3 border rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+            />
+            {/* New Field: Postal Code */}
+            <input
+              type="text"
+              name="postalCode"
+              value={billingInfo.postalCode}
+              onChange={handleBillingChange}
+              placeholder="Postal Code"
+              className="p-3 border rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+            />
+            {/* New Field: Payment Method */}
+            <select
+              name="paymentMethod"
+              value={billingInfo.paymentMethod}
+              onChange={handleBillingChange}
+              className="p-3 border rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+            >
+              <option value="">Select Payment Method</option>
+              <option value="creditCard">Credit Card</option>
+              <option value="paypal">PayPal</option>
+              <option value="bankTransfer">Bank Transfer</option>
+            </select>
 
             <button
               type="button"

@@ -6,6 +6,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { FaGripLines } from "react-icons/fa";
 import Search from "../search/Search";
+import Login from "./Login";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -39,8 +40,8 @@ const Navbar = () => {
               )}
             </div>
           </Link>
-
-          <FaRegCircleUser className="cursor-pointer hidden lg:block" />
+          <Login/>
+          
           {/* Mobile Menu Toggle */}
           <FaGripLines
             className="text-2xl cursor-pointer lg:hidden"
