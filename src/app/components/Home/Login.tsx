@@ -1,16 +1,11 @@
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 
 const Login = () => {
   return (
     <div>
-     <SignedOut>
+      <SignedOut>
         <SignInButton>
           <FaUserCircle className=" text-2xl cursor-pointer" />
         </SignInButton>
@@ -18,7 +13,6 @@ const Login = () => {
       <SignedIn>
         <UserButton />
       </SignedIn>
-      
     </div>
   );
 };
