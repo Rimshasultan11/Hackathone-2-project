@@ -5,11 +5,11 @@ import { FaUserCircle } from "react-icons/fa";
 const Login = () => {
   return (
     <div>
-      
+      <SignedOut>
         <SignInButton>
           <FaUserCircle className=" text-2xl cursor-pointer" />
         </SignInButton>
-      
+      </SignedOut>
       <SignedIn>
         <UserButton />
       </SignedIn>
