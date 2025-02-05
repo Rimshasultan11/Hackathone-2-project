@@ -33,15 +33,14 @@
 //   );
 // }
 
-
 import React, { Suspense } from "react";
 import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 
 import "./globals.css";
 import { ProductProvider } from "./context/ProductContext";
 import Navbar from "./components/Home/Navbar";
+import ClientWrapper from "./components/Home/ClientWrapper"; // Import Client Wrapper
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -56,18 +55,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
+    <html lang="en">
+      <body className={inter.className}>
+        <ClientWrapper>
+          {" "}
+          {/* Wrap everything inside ClientWrapper */}
           <ProductProvider>
             <Navbar />
-            {/* Suspense is needed to handle async ClerkProvider */}
-            <Suspense fallback={<div>Loading...</div>}>
-              {children}
-            </Suspense>
+            <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
           </ProductProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClientWrapper>
+      </body>
+    </html>
   );
 }
