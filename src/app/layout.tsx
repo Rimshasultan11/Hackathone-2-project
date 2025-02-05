@@ -4,6 +4,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ProductProvider } from "./context/ProductContext";
 import Navbar from "./components/Home/Navbar";
+import {
+  ClerkProvider,
+  ClerkLoaded,
+} from '@clerk/nextjs'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,13 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ProductProvider>
-          <Navbar />
-          {children}
-        </ProductProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <ProductProvider>
+            <Navbar />
+            {children}
+          </ProductProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
