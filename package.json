@@ -10,7 +10,6 @@
     "import-data": "node script/importSanityData.mjs"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.11.0",
     "@sanity/client": "^6.25.0",
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.70.0",
