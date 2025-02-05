@@ -26,7 +26,7 @@ const Login = () => {
     <div>
       <SignedOut>
         <SignInButton mode="modal">
-          <FaUserCircle className="text-2xl cursor-pointer" />
+          <FaUserCircle className="text-3xl cursor-pointer" />
         </SignInButton>
       </SignedOut>
       <SignedIn>

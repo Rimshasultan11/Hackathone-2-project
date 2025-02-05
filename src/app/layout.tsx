@@ -1,13 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
+
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ProductProvider } from "./context/ProductContext";
