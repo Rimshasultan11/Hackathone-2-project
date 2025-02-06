@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { TiDeleteOutline } from "react-icons/ti";
 
+
 interface CartItem {
   id: number;
   name: string;
@@ -59,6 +60,7 @@ const Cart: React.FC = () => {
     );
 
   return (
+    
     <div>
       <div className="w-[90%] mx-auto max-w-screen-lg">
         {cartItems.length > 0 ? (
@@ -150,6 +152,7 @@ const Cart: React.FC = () => {
         )}
       </div>
     </div>
+  
   );
 };
 
