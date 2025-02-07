@@ -6,8 +6,6 @@ import { ProductProvider } from "./context/ProductContext";
 import Navbar from "./components/Home/Navbar";
 import DynamicClerkProvider from "./components/Home/DynamicClerkProvider";
 
-
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,15 +19,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <DynamicClerkProvider>
-      <html lang="en">
+    <html lang="en">
         <body className={inter.className}>
+    <DynamicClerkProvider>
+      
           <ProductProvider>
             <Navbar />
             {children}
           </ProductProvider>
-        </body>
-      </html>
+      
     </DynamicClerkProvider>
+    </body>
+    </html>
   );
 }

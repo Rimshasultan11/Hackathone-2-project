@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Swal from "sweetalert2";
-
+import { client } from "@/sanity/lib/client";
+import { nanoid } from "nanoid";
 interface CartItem {
+  product: any;
   id: number;
   name: string;
   price: number;
@@ -19,8 +21,8 @@ const Checkout: React.FC = () => {
     address: "",
     city: "",
     country: "",
-    postalCode: "", 
-    paymentMethod: "", 
+    postalCode: "",
+    paymentMethod: "",
   });
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
 
@@ -56,13 +58,12 @@ const Checkout: React.FC = () => {
       billingInfo.email &&
       billingInfo.address &&
       billingInfo.city &&
-      billingInfo.country && 
-      billingInfo.postalCode && 
-      billingInfo.paymentMethod 
+      billingInfo.country &&
+      billingInfo.postalCode &&
+      billingInfo.paymentMethod
     );
   };
-
-  const handleOrderPlace = () => {
+  const handleOrderPlace = async () => {
     if (!isFormValid()) {
       Swal.fire({
         title: "Error!",
@@ -73,17 +74,55 @@ const Checkout: React.FC = () => {
       return;
     }
 
-    Swal.fire({
-      title: "Order Placed Successfully!",
-      text: "Thank you for your order. You will receive an email confirmation shortly.",
-      icon: "success",
-      confirmButtonText: "OK",
-    }).then(() => {
-      // Clear cart after order placement
-      localStorage.removeItem("cart");
-      setIsOrderPlaced(true);
-      window.location.href = "/"; // Redirect after placing the order
-    });
+    const orderData = {
+      _type: "order",
+      customer: {
+        fullName: billingInfo.fullName,
+        email: billingInfo.email,
+        address: billingInfo.address,
+        city: billingInfo.city,
+        country: billingInfo.country,
+        postalCode: billingInfo.postalCode,
+      },
+      cartItems: cartItems.map((item) => ({
+        _key: nanoid(),
+        name: item.name || "Unknown Product",
+        price: item.price || 0,
+        imageUrl: item.imageUrl || "",
+        quantity: item.quantity || 1,
+      })),
+      totalAmount: calculateTotal(),
+      paymentMethod: billingInfo.paymentMethod || "Not specified",
+      status: "pending",
+      createdAt: new Date().toISOString(),
+    };
+
+    try {
+      console.log("Sending order data:", orderData);
+      const response = await client.create(orderData);
+
+      console.log("Order placed successfully:", response);
+
+      Swal.fire({
+        title: "Order Placed Successfully!",
+        text: "Thank you for your order. You will receive an email confirmation shortly.",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
+        localStorage.removeItem("cart");
+        setIsOrderPlaced(true);
+        window.location.href = "/";
+      });
+    } catch (error) {
+      console.error("Error placing order:", error);
+
+      Swal.fire({
+        title: "Error!",
+        text: "There was an error placing your order. Please try again.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
   };
 
   const handleBillingChange = (
